@@ -36,15 +36,16 @@ class Fasta {
   
 /*
 TODO: Create constructor for creating a new brand new fastaFile file with a
-file name and one or more Sequence objects. The new object is
-written to a new fastaFile file.
+file name and one or more Sequence objects. The new object is written to a
+new fastaFile file.
 */
 
-    // This method opens a file, parses it and returns an ArrayList of Sequences
+    // This method opens a file and returns an ArrayList of Sequences
     public static ArrayList<Sequence> openFasta(File fastaFile)
-            throws FileNotFoundException, ParseException {
-        ArrayList<Sequence> seqOut = new ArrayList<>();    // to be returned
-        StringBuilder readBuffer = new StringBuilder();    // seq read buffer
+            throws FileNotFoundException,
+                   ParseException {
+        ArrayList<Sequence> seqOut = new ArrayList<>();
+        StringBuilder readBuffer = new StringBuilder();
         String header = "";
         int seqCount = 0;
         int linesRead = 0;
@@ -56,50 +57,44 @@ written to a new fastaFile file.
             String readQueue = input.nextLine();
             linesRead++;
 
-            // Is it a header line?
-            if (readQueue.charAt(0) == '>') {
-                // And if so, do we already have seq data pending?
+            if (isHeader(readQueue)) {
                 if (readBuffer.length() > 0) {
-                    // If so, increment the number of sequences in the file
                     seqCount++;
-
-                    // Then make an object out of the existing header and
-                    // sequence
                     seqOut.add(
                             parseToSequence(header, readBuffer.toString()));
-
-                    // Clear out the read buffer
-                    readBuffer.delete(0, readBuffer.length() - 1);
-
-                    // Then put this new header line in the header string
+                    flushBuffer(readBuffer);
                     header = readQueue.substring(1);
-                } else {
-                    // Line is a header, but we don't yet have any seq data
-                    // in buffer
+                }
 
-                    // If this was the second header line in a row, throw an
-                    // exception
+                else {
                     if (!header.isEmpty()) {
                         throw new ParseException("Invalid .fasta format: " +
                                 "There should only be one header line per " +
                                 "sequence.",
                                 linesRead);
                     }
-
-                    // Otherwise, hold this line in the header string
                     header = readQueue.substring(1);
                 }
-            } else {
-                // The line was not a header line, so just append it to
-                // readBuffer
+            }
+            else {
+                // Not a header line, just append it to read buffer
                 readBuffer.append(readQueue.toUpperCase());
             }
 
         }//while
+
         seqOut.add(parseToSequence(header, readBuffer.toString()));
 
         return seqOut;
-    } // openFasta method
+    }
+
+    private static void flushBuffer(StringBuilder readBuffer) {
+        readBuffer.delete(0, readBuffer.length());
+    }
+
+    private static boolean isHeader(String line){
+        return (line.charAt(0) == '>');
+    }
 
     // This method decides which type of Sequence is fitting and returns one
     private static Sequence parseToSequence(String header, String seq) {
@@ -141,4 +136,4 @@ written to a new fastaFile file.
         return seqMembers.get(i);
     }
 
-} // Fasta class
+}
