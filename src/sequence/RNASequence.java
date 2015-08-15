@@ -21,7 +21,9 @@ public class RNASequence extends Sequence {
                     "RNASequence objects may only contain A, C, G, U.");
         }
     }
-    
+
+
+
     // Validate RNA sequence (4 nucleotides allowed, no extraneous chars)
     public static boolean validateRNA(String seq) {
         Pattern rnaValidation = Pattern.compile("[^ACGU]");
