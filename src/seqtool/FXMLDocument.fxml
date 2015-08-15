@@ -43,11 +43,27 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfHeader" editable="false" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="tfHeader" editable="false" focusTraversable="false" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </HBox.margin>
+                     <opaqueInsets>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </opaqueInsets>
                   </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="35.0">
+               <children>
+                  <Label fx:id="labelHeader1" alignment="BOTTOM_CENTER" text="Type: " textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="textSeqType" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />

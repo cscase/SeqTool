@@ -10,7 +10,8 @@ import sequence.Sequence;
 
 /**
  * @author scottcase
- *         This class extends the JavaFX Tab class, and defines a tab to display a
+ *         This class extends the JavaFX Tab class, and defines a tab to
+ *         display a
  *         Sequence object for our application.
  */
 class SeqTab extends Tab {
@@ -20,7 +21,8 @@ class SeqTab extends Tab {
     // The Pane and TextArea where the Sequence will be displayed.
     private VBox seqPane;
 
-    // Constructors (2): A Sequence must be provided. Tab label text is optional.
+    // Constructors (2): A Sequence must be provided. Tab label text is
+    // optional.
     public SeqTab(Sequence aSeq) {
         super();
         this.seq = aSeq;

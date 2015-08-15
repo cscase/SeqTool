@@ -33,7 +33,8 @@ public class DNASequence extends Sequence {
     }
 
     // static method to return the complement of the string arg
-    public static String Complement(String dna) throws IllegalArgumentException {
+    public static String Complement(String dna) throws
+            IllegalArgumentException {
         StringBuilder complement = new StringBuilder();
         for (int i = 0; i < dna.length(); i++) {
             complement.append(nComplement(dna.charAt(i)));
