@@ -20,9 +20,6 @@ import java.util.Scanner;
 import sequence.DNASequence;
 import sequence.RNASequence;
 
-import static sequence.DNASequence.validateDNA;
-import static sequence.RNASequence.validateRNA;
-
 class Fasta {
   // The seqMembers ArrayList contains all of the Sequences from the file
   private ArrayList<Sequence> seqMembers;
@@ -136,10 +133,10 @@ written to a new fastaFile file.
   
   // This method decides which type of Sequence is fitting and returns one
   private static Sequence parseToSequence(String header, String seq) {
-    if (validateDNA(seq)) {
+    if (DNASequence.validateDNA(seq)) {
       return new DNASequence(header, seq);
     }
-    if (validateRNA(seq)) {
+    if (RNASequence.validateRNA(seq)) {
       return new RNASequence(header, seq);
     }
     return new Sequence(header, seq);
