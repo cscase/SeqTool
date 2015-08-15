@@ -1,7 +1,7 @@
 package sequence;
 /*
 AASequence is a prototype class that I plan to re-write later, using a 
-class for the AAs themselves. So this class is just a placeholder for now.
+class for the AAs themselves. So this is just a placeholder for now.
 Flagging it as deprecated.
 */
 
