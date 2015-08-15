@@ -29,6 +29,9 @@ public class FXMLDocumentController implements Initializable {
     private Label textSeqType;
 
     @FXML
+    private Label textSeqLength;
+
+    @FXML
     private TextField tfHeader;
 
     @FXML
@@ -86,11 +89,14 @@ public class FXMLDocumentController implements Initializable {
         // Display sequence type
         textSeqType.setText(currentSeq.getType());
 
+        // Display sequence length
+        textSeqLength.setText(String.valueOf(currentSeq.length()));
     }
 
     private void clearInfoBox() {
         tfHeader.setText("");
         textSeqType.setText("");
+        textSeqLength.setText("");
     }
 
     @Override
