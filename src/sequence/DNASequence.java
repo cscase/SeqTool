@@ -79,13 +79,6 @@ public class DNASequence extends Sequence {
         return count;
     }
 
-    // return the total number of each nucleotide in the sequence, for all 4
-    // (I wrote this method for a problem on Rosalind.info, commenting it out)
-    //    public String nComposition() {
-    //        return String.format("%d %d %d %d",
-    //        this.aCount(), this.cCount(), this.gCount(), this.tCount());
-    //    }
-
     public int gCount() {
         int count = 0;
         for (int i = 0; i < seq.length(); i++) {
