@@ -6,10 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import sequence.Sequence;
 import sequence.DNASequence;
 import sequence.RNASequence;
-
+import sequence.Sequence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -102,16 +101,18 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void updateTypeInfo(Sequence seq) {
-        switch(seq.getType()){
+        switch (seq.getType()) {
             case "DNA":
                 labelGCContent.setVisible(true);
                 textGCContent.setVisible(true);
-                textGCContent.setText(Double.toString(((DNASequence)seq).gcContent())+"%");
+                textGCContent.setText(Double.toString(((DNASequence) seq)
+                        .gcContent()) + "%");
                 break;
             case "RNA":
                 labelGCContent.setVisible(true);
                 textGCContent.setVisible(true);
-                textGCContent.setText(Double.toString(((RNASequence)seq).gcContent())+"%");
+                textGCContent.setText(Double.toString(((RNASequence) seq)
+                        .gcContent()) + "%");
                 break;
             default:
                 hideTypeInfo();
