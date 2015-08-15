@@ -2,10 +2,12 @@ package sequence;
 /*
 AASequence is a prototype class that I plan to re-write later, using a 
 class for the AAs themselves. So this class is just a placeholder for now.
+Flagging it as deprecated.
 */
 
 import java.util.regex.Pattern;
 
+@Deprecated
 public class AASequence extends Sequence {
     
     //Constructor if no header specified. Class doesn't have a no-arg constr.

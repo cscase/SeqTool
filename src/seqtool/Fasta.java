@@ -23,7 +23,7 @@ import sequence.RNASequence;
 import static sequence.DNASequence.validateDNA;
 import static sequence.RNASequence.validateRNA;
 
-public class Fasta {
+class Fasta {
   // The seqMembers ArrayList contains all of the Sequences from the file
   private ArrayList<Sequence> seqMembers;
   
@@ -135,7 +135,7 @@ written to a new fastaFile file.
   } // openFasta method
   
   // This method decides which type of Sequence is fitting and returns one
-  public static Sequence parseToSequence(String header, String seq) {
+  private static Sequence parseToSequence(String header, String seq) {
     if (validateDNA(seq)) {
       return new DNASequence(header, seq);
     }

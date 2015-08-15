@@ -5,8 +5,8 @@ package sequence;
 // Subclasses will extend this class with specific methods for DNA, RNA, AAs.
 
 public class Sequence {
-    protected final String seq;   // The sequence string. Immutable.
-    protected final String header;
+    protected final String seq;
+    private final String header;
     
     //Constructor if no header specified. Class doesn't have a no-arg constr.
     public Sequence(String seq) {
@@ -37,22 +37,10 @@ public class Sequence {
     //    specified range. Elements are counted beginning at 1. Arguments
     //    must be positive, nonzero integers. If the start point is higher
     //    than the end point, the bases will be returned in reverse order.
-    
+
     public String getSeq(int start, int end) throws IllegalArgumentException {
-        // Throw an exception if either argument is zero or negative
-        if ((start * end <= 0) || (start + end < 0)) {
-            throw new IllegalArgumentException("Invalid arguments: "+
-                    start+", "+end+". Start and end points must be positive"+
-                    ", nonzero integers.");
-        }
-        // Throw an exception if one or more arguments out of range
-        if ((start > this.length()) || (end > this.length())) {
-            throw new IllegalArgumentException("One or more arguments out"+
-                    " of range: "+start+", "+end+". Sequence length is "+
-                    this.length()+".");
-        }
-        
-        // Create a StringBuilder that will hold the output
+        validateGetSeqArgs(start, end);
+
         StringBuilder seqOut = new StringBuilder();
         
         // dir represents the direction to traverse in
@@ -73,7 +61,22 @@ public class Sequence {
         // Return result as a string
         return seqOut.toString();
     }
-    
+
+    private void validateGetSeqArgs(int start, int end) {
+        // Throw an exception if either argument is zero or negative
+        if ((start * end <= 0) || (start + end < 0)) {
+            throw new IllegalArgumentException("Invalid arguments: "+
+                    start+", "+end+". Start and end points must be positive"+
+                    ", nonzero integers.");
+        }
+        // Throw an exception if one or more arguments out of range
+        if ((start > this.length()) || (end > this.length())) {
+            throw new IllegalArgumentException("One or more arguments out"+
+                    " of range: "+start+", "+end+". Sequence length is "+
+                    this.length()+".");
+        }
+    }
+
     // length(): method returns the total number of characters in sequence
     public int length(){
         return seq.length();

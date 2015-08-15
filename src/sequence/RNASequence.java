@@ -33,7 +33,6 @@ public class RNASequence extends Sequence {
       return "RNA";
     }
    
-    // aCount(): counts the number of A nucleotides in sequence
     public int aCount() {
         int count = 0;
         for (int i = 0; i < seq.length(); i++){
@@ -44,7 +43,6 @@ public class RNASequence extends Sequence {
         return count;
     }
     
-    // cCount(): counts the number of C nucleotides in sequence
     public int cCount() {
         int count = 0;
         for (int i = 0; i < seq.length(); i++){
@@ -55,7 +53,6 @@ public class RNASequence extends Sequence {
         return count;
     }
 
-    // gCount(): counts the number of G nucleotides in sequence
     public int gCount() {
         int count = 0;
         for (int i = 0; i < seq.length(); i++){
@@ -66,7 +63,6 @@ public class RNASequence extends Sequence {
         return count;
     }
     
-    // uCount(): counts the number of U nucleotides in sequence
     public int uCount() {
         int count = 0;
         for (int i = 0; i < seq.length(); i++){

@@ -25,10 +25,10 @@ public class FXMLDocumentController implements Initializable {
   @FXML
   private TextField tfHeader;
    
-  private FileChooser fileChooser = new FileChooser();
+  private final FileChooser fileChooser = new FileChooser();
   
   @FXML
-  private void MenuFileOpenAction(ActionEvent event) {
+  private void MenuFileOpenAction() {
     fileChooser.setTitle ("Open a File");
     File fastaFile = fileChooser.showOpenDialog(null);
     if (fastaFile != null) {
@@ -52,14 +52,14 @@ public class FXMLDocumentController implements Initializable {
   }
   
   @FXML
-  private void MenuFileCloseAction(ActionEvent event) {
+  private void MenuFileCloseAction() {
     if (!tabPane.getTabs().isEmpty()){
       tabPane.getTabs().remove(tabPane.getSelectionModel().getSelectedIndex());
     }
   }
     
   @FXML
-  private void MenuFileExitAction(ActionEvent event) {
+  private void MenuFileExitAction() {
       System.exit(0);
   }
 
@@ -73,7 +73,7 @@ public class FXMLDocumentController implements Initializable {
 
   }
   
-  public void updateInfoBox() {
+  private void updateInfoBox() {
     // Show the header for the sequence
     int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
     SeqTab currentTab = (SeqTab)tabPane.getTabs().get(currentTabIndex);
