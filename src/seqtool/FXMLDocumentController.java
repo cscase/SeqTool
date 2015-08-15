@@ -3,11 +3,12 @@ package seqtool;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import sequence.Sequence;
+import sequence.DNASequence;
+import sequence.RNASequence;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,10 +21,7 @@ public class FXMLDocumentController implements Initializable {
     private final FileChooser fileChooser = new FileChooser();
 
     @FXML
-    private MenuBar menuBar;
-
-    @FXML
-    private TabPane tabPane;
+    private TextField tfHeader;
 
     @FXML
     private Label textSeqType;
@@ -32,7 +30,13 @@ public class FXMLDocumentController implements Initializable {
     private Label textSeqLength;
 
     @FXML
-    private TextField tfHeader;
+    private Label labelGCContent;
+
+    @FXML
+    private Label textGCContent;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private void MenuFileOpenAction() {
@@ -77,10 +81,10 @@ public class FXMLDocumentController implements Initializable {
         int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
         if (currentTabIndex == -1) {
             clearInfoBox();
+            hideTypeInfo();
             return;
         }
         SeqTab currentTab = (SeqTab) tabPane.getTabs().get(currentTabIndex);
-
         Sequence currentSeq = currentTab.getTabSeq();
 
         // Display header
@@ -91,12 +95,40 @@ public class FXMLDocumentController implements Initializable {
 
         // Display sequence length
         textSeqLength.setText(Integer.toString(currentSeq.length()));
+
+        // Refresh type-specific data in info box
+        updateTypeInfo(currentSeq);
+
+    }
+
+    private void updateTypeInfo(Sequence seq) {
+        switch(seq.getType()){
+            case "DNA":
+                labelGCContent.setVisible(true);
+                textGCContent.setVisible(true);
+                textGCContent.setText(Double.toString(((DNASequence)seq).gcContent())+"%");
+                break;
+            case "RNA":
+                labelGCContent.setVisible(true);
+                textGCContent.setVisible(true);
+                textGCContent.setText(Double.toString(((RNASequence)seq).gcContent())+"%");
+                break;
+            default:
+                hideTypeInfo();
+        }
+    }
+
+    private void hideTypeInfo() {
+        labelGCContent.setVisible(false);
+        textGCContent.setVisible(false);
+        textGCContent.setText("");
     }
 
     private void clearInfoBox() {
         tfHeader.setText("");
         textSeqType.setText("");
         textSeqLength.setText("");
+        textGCContent.setText("");
     }
 
     @Override
