@@ -70,19 +70,12 @@ public class FXMLDocumentController implements Initializable {
         System.exit(0);
     }
 
-    @Override
-    @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-        tabPane.getSelectionModel().selectedItemProperty().addListener(
-                (v, oldValue, newValue) -> {
-                    updateInfoBox();
-                });
-
-    }
-
     private void updateInfoBox() {
         int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
         SeqTab currentTab = (SeqTab) tabPane.getTabs().get(currentTabIndex);
+        if (currentTab == null) {
+            clearInfoBox();
+            return;}
         Sequence currentSeq = currentTab.getTabSeq();
 
         // Display header
@@ -90,6 +83,22 @@ public class FXMLDocumentController implements Initializable {
 
         // Display sequence type
         textSeqType.setText(currentSeq.getType());
+
+    }
+
+    private void clearInfoBox() {
+        tfHeader.setText("");
+        textSeqType.setText("");
+    }
+
+    @Override
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                (v, oldValue, newValue) -> {
+                    updateInfoBox();
+                });
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
 
     }
 }
