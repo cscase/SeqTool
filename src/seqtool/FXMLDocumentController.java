@@ -90,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
         textSeqType.setText(currentSeq.getType());
 
         // Display sequence length
-        textSeqLength.setText(String.valueOf(currentSeq.length()));
+        textSeqLength.setText(Integer.toString(currentSeq.length()));
     }
 
     private void clearInfoBox() {
