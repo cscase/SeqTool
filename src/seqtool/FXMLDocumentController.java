@@ -72,10 +72,12 @@ public class FXMLDocumentController implements Initializable {
 
     private void updateInfoBox() {
         int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
-        SeqTab currentTab = (SeqTab) tabPane.getTabs().get(currentTabIndex);
-        if (currentTab == null) {
+        if (currentTabIndex == -1) {
             clearInfoBox();
-            return;}
+            return;
+        }
+        SeqTab currentTab = (SeqTab) tabPane.getTabs().get(currentTabIndex);
+
         Sequence currentSeq = currentTab.getTabSeq();
 
         // Display header
@@ -99,6 +101,5 @@ public class FXMLDocumentController implements Initializable {
                     updateInfoBox();
                 });
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
-
     }
 }
