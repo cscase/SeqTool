@@ -17,7 +17,7 @@ public class SeqTool extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument" +
                 ".fxml"));
 
-        Scene scene = new Scene(root, 800, 800);
+        Scene scene = new Scene(root, 800, 600);
 
         stage.setScene(scene);
         stage.show();

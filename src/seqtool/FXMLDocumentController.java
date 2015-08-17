@@ -2,13 +2,17 @@ package seqtool;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sequence.DNASequence;
 import sequence.RNASequence;
 import sequence.Sequence;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -130,6 +134,46 @@ public class FXMLDocumentController implements Initializable {
         textSeqType.setText("");
         textSeqLength.setText("");
         textGCContent.setText("");
+    }
+
+    @FXML
+    public void menuHelpAboutAction() {
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("About this tool");
+        window.setResizable(false);
+
+        String about = "SeqTool\nAuthor: Scott Case\nFor COSC 2033, summer " +
+                "2015\nInstructor David Robbins\nLeTourneau " +
+                "University\n\nQuick summary:\nThis program opens .fasta " +
+                "files (see wikipedia entry for info about this simple file " +
+                "format) and parses their contents into an object class " +
+                "called Sequence, or one of two subclasses for RNA or DNA " +
+                "sequences, as appropriate. Each sequence is displayed on its" +
+                " own tab, and information about the selected sequence is " +
+                "displayed about the tab pane. I'm planning to add more " +
+                "functionality in the future that will make it more useful, " +
+                "so this is just a starting point.\n\nI'm submitting the .jar" +
+                " itself, which contains both the .class files and the source" +
+                " code for the project. The source code is in the src folder " +
+                "in the .jar. I'm also submitting some .fasta files that can " +
+                "be opened for testing the project and seeing how it works. " +
+                "Finally, I'm also including UML diagrams.";
+
+        TextArea taAboutBox = new TextArea(about);
+        taAboutBox.setWrapText(true);
+
+        Button btClose = new Button("Close");
+        btClose.setDefaultButton(true);
+        btClose.setOnAction(e -> window.close());
+        BorderPane box = new BorderPane();
+        box.setCenter(taAboutBox);
+        box.setBottom(btClose);
+        BorderPane.setAlignment(btClose, Pos.CENTER);
+        Scene scene = new Scene(box, 400, 380);
+        window.setScene(scene);
+        window.show();
     }
 
     @Override

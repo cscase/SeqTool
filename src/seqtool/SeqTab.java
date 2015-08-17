@@ -60,6 +60,9 @@ class SeqTab extends Tab {
         taSeq.setEditable(false);
         taSeq.setWrapText(true);
         taSeq.setPadding(new Insets(5, 5, 5, 5));
+//        taSeq.selectionProperty().addListener((v, oldValue, newValue) -> {
+//            this.getTabPane().;
+//        });
 
         return taSeq;
     }
