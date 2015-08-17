@@ -5,7 +5,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 import sequence.Sequence;
 
 /**
@@ -15,11 +14,8 @@ import sequence.Sequence;
  *         Sequence object for our application.
  */
 class SeqTab extends Tab {
-    // This is the Sequence associated with this UI tab.
+    // Sequence associated with this UI tab.
     private final Sequence seq;
-
-    // The Pane and TextArea where the Sequence will be displayed.
-    private VBox seqPane;
 
     // Constructors (2): A Sequence must be provided. Tab label text is
     // optional.
@@ -54,15 +50,11 @@ class SeqTab extends Tab {
     private TextArea addTextArea() {
         TextArea taSeq = new TextArea();
 
-        // Assign the sequence TextArea as the content of this tab
         super.setContent(taSeq);
 
         taSeq.setEditable(false);
         taSeq.setWrapText(true);
         taSeq.setPadding(new Insets(5, 5, 5, 5));
-//        taSeq.selectionProperty().addListener((v, oldValue, newValue) -> {
-//            this.getTabPane().;
-//        });
 
         return taSeq;
     }
