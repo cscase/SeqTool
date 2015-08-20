@@ -2,9 +2,11 @@ package seqtool;
 
 /**
  * @author scottcase
- * This class represents a .fasta file as an object. A fasta object will
- * contain all of the sequence objects found within a fasta file and their
- * types. It also can return some information about the file itself, such as
+ * This class represents a .fasta file as an object. A .fasta file is a file
+ * containing sequences, usually of DNA, RNA, or amino acids, etc. A single
+ * .fasta file can contain more than one sequence. A Fasta object will
+ * contain all of the sequence objects found within a .fasta file.
+ * It also can return some information about the file itself, such as
  * file size in bytes, path. Because the getMemberList() method returns a ref
  * to the seqMembers ArrayList, the class is not immutable.
  */
@@ -23,12 +25,10 @@ class Fasta {
     // The seqMembers ArrayList contains all of the Sequences from the file
     private ArrayList<Sequence> seqMembers;
 
-    // A reference to the actual .fasta file
+    // A reference to the actual .fasta file on disk
     private File fastaFile;
 
-    // Does not have a no-arg constructor; requires a File at minimum.
-
-    // Constructor when file is provided: reads file, parses it, creates objects
+    // Constructor: reads file, parses it, creates Sequence objects
     public Fasta(File fastaFile) throws FileNotFoundException, ParseException {
         seqMembers = openFasta(fastaFile);
         this.fastaFile = fastaFile;
@@ -57,7 +57,7 @@ new fastaFile file.
             String readQueue = input.nextLine();
             linesRead++;
 
-            if (isHeader(readQueue)) {
+            if (isHeaderLine(readQueue)) {
                 if (readBuffer.length() > 0) {
                     seqCount++;
                     seqOut.add(
@@ -92,7 +92,7 @@ new fastaFile file.
         readBuffer.delete(0, readBuffer.length());
     }
 
-    private static boolean isHeader(String line){
+    private static boolean isHeaderLine(String line){
         return (line.charAt(0) == '>');
     }
 
