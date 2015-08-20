@@ -10,8 +10,9 @@ import sequence.Sequence;
 /**
  * @author scottcase
  *         This class extends the JavaFX Tab class, and defines a tab to
- *         display a
- *         Sequence object for our application.
+ *         display a Sequence object for our application. It associates a
+ *         specific sequence object with each tab and names the tabs
+ *         based on the file name.
  */
 class SeqTab extends Tab {
     // Sequence associated with this UI tab.
@@ -31,9 +32,13 @@ class SeqTab extends Tab {
         setup();
     }
 
+    // This getter returns a ref. to the sequence associated with the tab
     public Sequence getTabSeq() {
         return this.seq;
     }
+
+    // This method performs some initialization tasks and is called by both of
+    // the constructors after they finish
 
     private void setup() {
         setTabColor();
@@ -47,6 +52,7 @@ class SeqTab extends Tab {
         taSeq.setScrollTop(Double.MAX_VALUE);
     }
 
+    // This method adds the sequence display TextArea to the tab ans sets it up
     private TextArea addTextArea() {
         TextArea taSeq = new TextArea();
 
@@ -59,6 +65,11 @@ class SeqTab extends Tab {
         return taSeq;
     }
 
+    // This method adds a context menu to the tab with a "Close" option
+    // I later figured out how to add the 'X' to the tabs themselves for
+    // closing, but I figured it doesn't hurt to have another option and left
+    // this in.
+
     private void addContextMenu() {
         MenuItem tabClose = new MenuItem("Close");
         tabClose.setOnAction(e -> this.getTabPane().getTabs().remove(this));
@@ -66,6 +77,8 @@ class SeqTab extends Tab {
         this.setContextMenu(tabMenu);
     }
 
+    // This method sets the color of the tab based on the type of sequence
+    // associated with it
     private void setTabColor() {
         // Set the tab color based on what type of sequence it holds
         switch (seq.getType()) {
