@@ -1,3 +1,26 @@
+/**
+ * @author scottcase
+ * COSC 2033 Section AA, Summer 2015
+ * Week 15
+ * Personal programming assignment
+ * Author Scott Case
+ * Modified 08 / 19 / 2015
+ *
+Quick summary:
+This program opens .fasta files (see wikipedia entry for info about this simple
+file format) and parses their contents into an object class called Sequence,
+or one of two subclasses for RNA or DNA sequences, as appropriate. Each
+sequence is displayed on its own tab, and information about the selected
+sequence is displayed about the tab pane. I'm planning to add more
+functionality in the future that will make it more useful, so this is just a
+starting point.
+
+I'm submitting the .jar itself, which contains both the .class files and the
+source code for the project. The source code is in the src folder in the .jar.
+I'm also submitting some .fasta files that can be opened for testing the
+project and seeing how it works. Finally, I'm also including UML diagrams.
+ */
+
 package seqtool;
 
 import javafx.fxml.FXML;
@@ -42,6 +65,7 @@ public class FXMLDocumentController implements Initializable {
     private TabPane tabPane;
 
     @FXML
+    // Event handler for menu bar item File -> Open
     private void MenuFileOpenAction() {
         fileChooser.setTitle("Open a File");
         File fastaFile = fileChooser.showOpenDialog(null);
@@ -67,6 +91,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    // Event handler for menu bar File -> Close
     private void MenuFileCloseAction() {
         if (!tabPane.getTabs().isEmpty()) {
             tabPane.getTabs().remove(tabPane.getSelectionModel()
@@ -76,10 +101,12 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    // Event handler for menu bar File -> Exit
     private void MenuFileExitAction() {
         System.exit(0);
     }
 
+    // This routine refreshes the info displayed at the top, above the tab pane
     private void updateInfoBox() {
         int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
         if (currentTabIndex == -1) {
@@ -104,6 +131,7 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    // This method updates the type-specific section of the info pane (DNA, RNA)
     private void updateTypeInfo(Sequence seq) {
         switch (seq.getType()) {
             case "DNA":
@@ -123,12 +151,15 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    // This method hides the type-specific info pane items when
+    // they're not applicable
     private void hideTypeInfo() {
         labelGCContent.setVisible(false);
         textGCContent.setVisible(false);
         textGCContent.setText("");
     }
 
+    // This method blanks the info box, used when no sequence is selected
     private void clearInfoBox() {
         tfHeader.setText("");
         textSeqType.setText("");
@@ -137,6 +168,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    // Menu bar Help - About event handler
     public void menuHelpAboutAction() {
         Stage window = new Stage();
 
