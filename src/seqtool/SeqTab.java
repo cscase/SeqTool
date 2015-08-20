@@ -1,4 +1,26 @@
 package seqtool;
+/**
+ * @author scottcase
+ * COSC 2033 Section AA, Summer 2015
+ * Week 15
+ * Personal programming assignment
+ * Author Scott Case
+ * Modified 08 / 19 / 2015
+ *
+Quick summary:
+This program opens .fasta files (see wikipedia entry for info about this simple
+file format) and parses their contents into an object class called Sequence,
+or one of two subclasses for RNA or DNA sequences, as appropriate. Each
+sequence is displayed on its own tab, and information about the selected
+sequence is displayed about the tab pane. I'm planning to add more
+functionality in the future that will make it more useful, so this is just a
+starting point.
+
+I'm submitting the .jar itself, which contains both the .class files and the
+source code for the project. The source code is in the src folder in the .jar.
+I'm also submitting some .fasta files that can be opened for testing the
+project and seeing how it works. Finally, I'm also including UML diagrams.
+ */
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
@@ -8,7 +30,6 @@ import javafx.scene.control.TextArea;
 import sequence.Sequence;
 
 /**
- * @author scottcase
  *         This class extends the JavaFX Tab class, and defines a tab to
  *         display a Sequence object for our application. It associates a
  *         specific sequence object with each tab and names the tabs
