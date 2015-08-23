@@ -54,14 +54,20 @@ public class DNASequence extends Sequence {
         return !dnaValidation.matcher(seq).find();
     }
 
-    // static method to return the complement of the string arg
-    public static String Complement(String dna) throws
+    // return the complement of a string
+    public static String complement(String dna) throws
             IllegalArgumentException {
         StringBuilder complement = new StringBuilder();
         for (int i = 0; i < dna.length(); i++) {
             complement.append(nComplement(dna.charAt(i)));
         }
         return complement.toString();
+    }
+
+    // return the reverse complement of a string
+    public static String revComplement(String dna){
+        StringBuilder reverse = new StringBuilder(dna).reverse();
+        return complement(reverse.toString());
     }
 
     // static method returns the complement of a char arg
