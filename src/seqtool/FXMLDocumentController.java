@@ -155,22 +155,9 @@ public class FXMLDocumentController implements Initializable {
         window.setTitle("About this tool");
         window.setResizable(false);
 
-        String about = "SeqTool\nAuthor: Scott Case\nFor COSC 2033, summer " +
-                "2015\nInstructor David Robbins\nLeTourneau " +
-                "University\n\nQuick summary:\nThis program opens .fasta " +
-                "files (see wikipedia entry for info about this simple file " +
-                "format) and parses their contents into an object class " +
-                "called Sequence, or one of two subclasses for RNA or DNA " +
-                "sequences, as appropriate. Each sequence is displayed on its" +
-                " own tab, and information about the selected sequence is " +
-                "displayed about the tab pane. I'm planning to add more " +
-                "functionality in the future that will make it more useful, " +
-                "so this is just a starting point.\n\nI'm submitting the .jar" +
-                " itself, which contains both the .class files and the source" +
-                " code for the project. The source code is in the src folder " +
-                "in the .jar. I'm also submitting some .fasta files that can " +
-                "be opened for testing the project and seeing how it works. " +
-                "Finally, I'm also including UML diagrams.";
+        String about = "SeqTool\nAuthor: Scott Case\nSeqTool is a tool for viewing DNA/RNA/other sequences and " +
+                "learning useful things about them. Moreover, it is an exercise in programming for me. It works with" +
+                ".fasta files. (See the .fasta file format entry on wikipedia for a description of this format.)";
 
         TextArea taAboutBox = new TextArea(about);
         taAboutBox.setWrapText(true);

@@ -1,4 +1,7 @@
 package sequence;
+
+import java.util.Scanner;
+
 /**
  * @author scottcase
  * COSC 2033 Section AA, Summer 2015
@@ -83,25 +86,45 @@ public class Sequence {
         return seqOut.toString();
     }
 
+    // Returns the full sequence, with line breaks at lineLength increments
+    public String getSeqAsLines(int lineLength) {
+        StringBuilder readBuffer = new StringBuilder();
+        int readIndex = 1;
+        final int seqLength = this.seq.length();
+
+        while (readIndex < seqLength) {
+            int endOfLineIndex = ((readIndex + lineLength) < seqLength)
+                    ? ((readIndex + lineLength) - 1)
+                    : (seqLength);
+            readBuffer.append(this.getSeq(readIndex, endOfLineIndex));
+            if (endOfLineIndex < seqLength) readBuffer.append("\n");
+
+            readIndex = endOfLineIndex + 1;
+        }
+        return readBuffer.toString();
+    }
+
     private void validateGetSeqArgs(int start, int end) {
         // Throw an exception if either argument is zero or negative
         if ((start * end <= 0) || (start + end < 0)) {
-            throw new IllegalArgumentException("Invalid arguments: " +
-                    start + ", " + end + ". Start and end points must be " +
-                    "positive nonzero integers.");
+            throw new IllegalArgumentException("Invalid arguments: " + start + ", " + end
+                    + ". Start and end points must be positive nonzero integers.");
         }
         // Throw an exception if one or more arguments out of range
         if ((start > this.length()) || (end > this.length())) {
-            throw new IllegalArgumentException("One or more arguments out" +
-                    " of range: " + start + ", " + end + ". Sequence length " +
-                    "is " +
-                    this.length() + ".");
+            throw new IllegalArgumentException("One or more arguments out of range: " + start + ", " + end
+                    + ". Sequence length is " + this.length() + ".");
         }
     }
 
     // length(): method returns the total number of characters in sequence
     public int length() {
         return seq.length();
+    }
+
+    @Override
+    public String toString() {
+        return ">" + this.getHeader() + "\n" + this.getSeqAsLines(70);
     }
 
 }

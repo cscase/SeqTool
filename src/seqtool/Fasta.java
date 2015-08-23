@@ -132,8 +132,14 @@ new fastaFile file.
         return seqMembers.size();
     }
 
-    public Sequence getMember(int i) {
-        return seqMembers.get(i);
+    public Sequence getMember(int memberIndex) {
+        return seqMembers.get(memberIndex);
     }
 
+    @Override
+    public String toString() {
+        return "Fasta{" +
+                "seqMembers=" + seqMembers +
+                '}';
+    }
 }
