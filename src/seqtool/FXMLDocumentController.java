@@ -92,6 +92,7 @@ public class FXMLDocumentController implements Initializable {
         Sequence currentSeq = currentTab.getTabSeq();
 
         currentSeq.setHeader(tfHeader.getText());
+        tabPane.requestFocus();
     }
 
     // This routine refreshes the info displayed at the top, above the tab pane
