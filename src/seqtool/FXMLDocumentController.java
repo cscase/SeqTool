@@ -85,6 +85,15 @@ public class FXMLDocumentController implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    private void tfHeaderUpdateAction() {
+        int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
+        SeqTab currentTab = (SeqTab) tabPane.getTabs().get(currentTabIndex);
+        Sequence currentSeq = currentTab.getTabSeq();
+
+        currentSeq.setHeader(tfHeader.getText());
+    }
+
     // This routine refreshes the info displayed at the top, above the tab pane
     private void updateInfoBox() {
         int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
@@ -98,6 +107,7 @@ public class FXMLDocumentController implements Initializable {
 
         // Display header
         tfHeader.setText(currentSeq.getHeader());
+        tfHeader.setEditable(true);
 
         // Display sequence type
         textSeqType.setText(currentSeq.getType());
@@ -141,6 +151,7 @@ public class FXMLDocumentController implements Initializable {
     // This method blanks the info box, used when no sequence is selected
     private void clearInfoBox() {
         tfHeader.setText("");
+        tfHeader.setEditable(false);
         textSeqType.setText("");
         textSeqLength.setText("");
         textGCContent.setText("");
