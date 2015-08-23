@@ -1,32 +1,14 @@
 package seqtool;
-/**
- * @author scottcase
- * COSC 2033 Section AA, Summer 2015
- * Week 15
- * Personal programming assignment
- * Author Scott Case
- * Modified 08 / 19 / 2015
- *
-Quick summary:
-This program opens .fasta files (see wikipedia entry for info about this simple
-file format) and parses their contents into an object class called Sequence,
-or one of two subclasses for RNA or DNA sequences, as appropriate. Each
-sequence is displayed on its own tab, and information about the selected
-sequence is displayed about the tab pane. I'm planning to add more
-functionality in the future that will make it more useful, so this is just a
-starting point.
-
-I'm submitting the .jar itself, which contains both the .class files and the
-source code for the project. The source code is in the src folder in the .jar.
-I'm also submitting some .fasta files that can be opened for testing the
-project and seeing how it works. Finally, I'm also including UML diagrams.
- */
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import sequence.DNASequence;
+import sequence.RNASequence;
 import sequence.Sequence;
 
 /**
@@ -38,6 +20,7 @@ import sequence.Sequence;
 class SeqTab extends Tab {
     // Sequence associated with this UI tab.
     private final Sequence seq;
+    TextArea taSeq;
 
     // Constructors (2): A Sequence must be provided. Tab label text is
     // optional.
@@ -64,7 +47,7 @@ class SeqTab extends Tab {
     private void setup() {
         setTabColor();
         addContextMenu();
-        TextArea taSeq = addTextArea();
+        taSeq = addTextArea();
 
         // Write the text of the sequence into the TextArea
         taSeq.appendText(this.seq.getSeq());
@@ -73,7 +56,7 @@ class SeqTab extends Tab {
         taSeq.setScrollTop(Double.MAX_VALUE);
     }
 
-    // This method adds the sequence display TextArea to the tab ans sets it up
+    // This method adds the sequence display TextArea to the tab and sets it up
     private TextArea addTextArea() {
         TextArea taSeq = new TextArea();
 
@@ -82,15 +65,54 @@ class SeqTab extends Tab {
         taSeq.setEditable(false);
         taSeq.setWrapText(true);
         taSeq.setPadding(new Insets(5, 5, 5, 5));
+        if (this.getTabSeq().getType() == "DNA" || this.getTabSeq().getType() == "RNA") {
+            addTypeSpecificContextMenu(taSeq);
+        }
 
         return taSeq;
     }
 
-    // This method adds a context menu to the tab with a "Close" option
-    // I later figured out how to add the 'X' to the tabs themselves for
-    // closing, but I figured it doesn't hurt to have another option and left
-    // this in.
+    private void addTypeSpecificContextMenu(TextArea taSeq) {
+        MenuItem getRevComplementToClipboard = new MenuItem("Rev. complement -> Clipboard");
+        getRevComplementToClipboard.setOnAction(e -> getRevComplementToClipboardAction());
+        MenuItem getRevComplementToNewTab = new MenuItem("Rev. complement -> New tab");
+        getRevComplementToNewTab.setOnAction(e -> getRevComplementToNewTabAction());
+        ContextMenu taSeqContextMenu = new ContextMenu(getRevComplementToClipboard, getRevComplementToNewTab);
+        taSeq.setContextMenu(taSeqContextMenu);
+    }
 
+    private void getRevComplementToClipboardAction() {
+        String targetSeq = (this.taSeq.getSelectedText().isEmpty())
+                ? this.getTabSeq().getSeq()
+                : this.taSeq.getSelectedText();
+        String reverseComplement;
+        if (this.getTabSeq().getType() == "DNA") {
+            reverseComplement = DNASequence.revComplement(targetSeq);
+        }
+        else {
+            reverseComplement = RNASequence.revComplement(targetSeq);
+        }
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(reverseComplement);
+        clipboard.setContent(content);
+    }
+
+    private void getRevComplementToNewTabAction() {
+        String targetSeq = (this.taSeq.getSelectedText().isEmpty())
+                ? this.getTabSeq().getSeq()
+                : this.taSeq.getSelectedText();
+        String reverseComplement;
+        if (this.getTabSeq().getType() == "DNA") {
+            reverseComplement = DNASequence.revComplement(targetSeq);
+        }
+        else {
+            reverseComplement = RNASequence.revComplement(targetSeq);
+        }
+        this.getTabPane().getTabs().add(new SeqTab("untitled seq", Fasta.parseToSequence("", reverseComplement)));
+    }
+
+    // Context menu for tab
     private void addContextMenu() {
         MenuItem tabClose = new MenuItem("Close");
         tabClose.setOnAction(e -> this.getTabPane().getTabs().remove(this));

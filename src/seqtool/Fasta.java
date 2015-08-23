@@ -97,7 +97,7 @@ new fastaFile file.
     }
 
     // Decides which type of Sequence is fitting and returns one
-    private static Sequence parseToSequence(String header, String seq) {
+    static Sequence parseToSequence(String header, String seq) {
         if (DNASequence.validateDNA(seq)) {
             return new DNASequence(header, seq);
         }
